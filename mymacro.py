@@ -12,7 +12,7 @@ def unfold_macro(filename):
 				fh_out.write(line)
 				continue
 			macro_filename = extract_macro_filename(pos, line)
-			write_macro(fh_out, macro_filename)	
+			write_macro(fh_out, macro_filename, pos)	
 
 def extract_macro_filename(pos, line):
 	start = pos + len(mark)
@@ -23,9 +23,11 @@ def extract_macro_filename(pos, line):
 		filename = line[start:end_pos]
 	return filename.strip()
 
-def write_macro(fh_out, macro_filename):
+def write_macro(fh_out, macro_filename, indent=0):
+	indentation = " " * indent
 	with open(macro_filename, 'r') as fh_in:
 		lines = fh_in.readlines()
+		lines = [indentation + line for line in lines]
 		fh_out.writelines(lines)
 
 if __name__ == '__main__':
@@ -33,4 +35,4 @@ if __name__ == '__main__':
 		simple program to expand macro in python source code')
 	parser.add_argument('sourcefile', action='store')
 	namespace = parser.parse_args()
-	unfold_macro(namespace.source)
+	unfold_macro(namespace.sourcefile)
