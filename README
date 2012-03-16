@@ -1,0 +1,1 @@
+This is a simple macro expand tool to help me deal with sphinx document. I need to include some experiment data in my rst, but Sphinx's templating is use for page style. So I write this tool to expand the data file in place, just like we include c macro in source file.
